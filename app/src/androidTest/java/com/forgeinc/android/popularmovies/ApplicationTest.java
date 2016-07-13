@@ -1,4 +1,4 @@
-package com.forgeinc.popularmovies;
+package com.forgeinc.android.popularmovies;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

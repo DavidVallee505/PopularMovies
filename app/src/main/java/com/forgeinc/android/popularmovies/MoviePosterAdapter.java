@@ -1,4 +1,4 @@
-package com.forgeinc.popularmovies;
+package com.forgeinc.android.popularmovies;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
+public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MyViewHolder> {
     private String[] mDataset;
 
     // Provide a reference to the views for each data item
@@ -21,36 +22,38 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
         public ImageView mImageView;
         public MyViewHolder(View v) {
             super(v);
-            mImageView = (ImageView) v;
-            v.setOnClickListener(MainActivity.myOnClickListener);
+            mImageView = (ImageView) v.findViewById(R.id.poster_image);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyRecyclerViewAdapter(String[] myDataset) {
+    public MoviePosterAdapter(String[] myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public MyRecyclerViewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MoviePosterAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
             .inflate(R.layout.poster_item, parent, false);
-        // set the view's size, margins, paddings and layout parameters
-        // ...
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new MyViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         Uri uri = Uri.parse(mDataset[position]);
         Context context = holder.mImageView.getContext();
         // - replace the contents of the view with that element
         Picasso.with(context).load(uri).into(holder.mImageView);
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(holder.mImageView.getContext(), "Test123", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -1,4 +1,4 @@
-package com.forgeinc.popularmovies;
+package com.forgeinc.android.popularmovies;
 
 import org.junit.Test;
 
