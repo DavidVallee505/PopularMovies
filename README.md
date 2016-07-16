@@ -7,4 +7,4 @@ In order for the PopularMovies app to function properly, an API key for themovie
 Use instructions here to obtain the key: http://docs.themoviedb.apiary.io/#
 
 Include the unique key for the build by adding the following line to [USER_HOME]/.gradle/gradle.properties
-'TheMovieDatabaseApiKey="<UNIQUE_API_KEY>"'
+`TheMovieDatabaseApiKey="<UNIQUE_API_KEY>"`
