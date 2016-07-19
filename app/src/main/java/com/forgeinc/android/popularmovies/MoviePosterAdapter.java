@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 
 public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.MyViewHolder> {
-    private String[] mDataset;
+    private MovieInfo[] mDataset;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -27,8 +27,14 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MoviePosterAdapter(String[] myDataset) {
+    public MoviePosterAdapter(MovieInfo[] myDataset) {
         mDataset = myDataset;
+    }
+
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public MoviePosterAdapter() {
+
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -44,7 +50,7 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
-        Uri uri = Uri.parse(mDataset[position]);
+        Uri uri = Uri.parse("https://image.tmdb.org/t/p/w185/" + mDataset[position].posterPath);
         Context context = holder.mImageView.getContext();
         // - replace the contents of the view with that element
         Picasso.with(context).load(uri).into(holder.mImageView);
@@ -59,6 +65,8 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        if (mDataset != null)
+            return mDataset.length;
+        return 0;
     }
 }

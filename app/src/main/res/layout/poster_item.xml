@@ -5,5 +5,4 @@
     android:adjustViewBounds="true"
     android:contentDescription="@string/image_thumbnail_description"
     android:scaleType="fitCenter"
-    android:padding="8dp"
     />

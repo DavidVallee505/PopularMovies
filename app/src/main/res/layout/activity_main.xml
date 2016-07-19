@@ -1,8 +1,13 @@
-<com.forgeinc.android.popularmovies.AutoFitRecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/my_recycler_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/item_margin"
-    android:columnWidth="@dimen/column_width"
-    android:clipToPadding="false"/>
+<FrameLayout android:id="@+id/container"
+             xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context=".MainActivity"
+             tools:ignore="MergeRootFrame">
+    <fragment
+        android:name="com.forgeinc.android.popularmovies.MoviesGridFragment"
+        android:id="@+id/movies_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

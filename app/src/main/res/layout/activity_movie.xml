@@ -10,10 +10,12 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.forgeinc.android.popularmovies.MovieActivity">
 
-    <WebView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/movie_web_view"
+        android:id="@+id/movie_image_view"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:transitionName="@string/transition_movie_poster"/>
+
 </RelativeLayout>

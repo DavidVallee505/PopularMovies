@@ -3,6 +3,8 @@
     <string name="image_thumbnail_description">Click for details</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="transition_movie_poster">transition_movie_poster</string>
+
 
     <!-- Label for the sorting preference [CHAR LIMIT=30] -->
     <string name="pref_sort_label">Sort Movies by</string>
@@ -15,5 +17,8 @@
     <!-- Value in SharedPreferences for popular sorting option [CHAR LIMIT=NONE] -->
     <string name="pref_sort_popular" translatable="false">popular</string>
     <!-- Value in SharedPreferences for rating sorting option [CHAR LIMIT=NONE] -->
-    <string name="pref_sort_rating" translatable="false">rating</string>
+    <string name="pref_sort_rating" translatable="false">top_rated</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
