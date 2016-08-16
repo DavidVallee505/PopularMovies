@@ -27,14 +27,13 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MoviePosterAdapter(MovieInfo[] myDataset) {
-        mDataset = myDataset;
+    public MoviePosterAdapter() {
+        mDataset = new MovieInfo[] {};
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MoviePosterAdapter() {
-
-
+    public MoviePosterAdapter(MovieInfo[] dataset) {
+        mDataset = dataset;
     }
 
     // Create new views (invoked by the layout manager)
@@ -65,8 +64,17 @@ public class MoviePosterAdapter extends RecyclerView.Adapter<MoviePosterAdapter.
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        if (mDataset != null)
+        if (mDataset != null) {
             return mDataset.length;
+        }
         return 0;
+    }
+
+    public MovieInfo[] getData() {
+        return mDataset;
+    }
+
+    public void setData(MovieInfo[] dataset) {
+        mDataset = dataset;
     }
 }

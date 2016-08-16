@@ -32,8 +32,8 @@ public class MoviesGridFragment extends Fragment {
     private static final String TAG = "RecyclerViewFragment";
 
     protected RecyclerView mRecyclerView;
-    protected MovieInfo[] mDataset;
     protected MoviePosterAdapter mMoviePosterAdapter;
+    protected MovieInfo[] initialDataset;
 
     public MoviesGridFragment() {
         // Required empty public constructor
@@ -42,6 +42,7 @@ public class MoviesGridFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateMovies();
     }
 
     @Override
@@ -55,8 +56,9 @@ public class MoviesGridFragment extends Fragment {
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
+
         // specify an adapter
-        mMoviePosterAdapter = new MoviePosterAdapter(mDataset);
+        mMoviePosterAdapter = new MoviePosterAdapter(initialDataset);
         mRecyclerView.setAdapter(mMoviePosterAdapter);
 
         return rootView;
@@ -64,16 +66,13 @@ public class MoviesGridFragment extends Fragment {
 
     private void updateMovies() {
         FetchMoviesTask moviesTask = new FetchMoviesTask();
-        String sortType = PreferenceManager.getDefaultSharedPreferences(getActivity())
-            .getString(getString(R.string.pref_sort_key),
-                getString(R.string.pref_sort_rating));
-        moviesTask.execute(sortType);
+        moviesTask.execute();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        updateMovies();
+
     }
 
     public class FetchMoviesTask extends AsyncTask<String, Void, MovieInfo[]> {
@@ -109,9 +108,9 @@ public class MoviesGridFragment extends Fragment {
                 JSONObject movieInfo = moviesArray.getJSONObject(i);
                 resultMovies[i] = new MovieInfo(movieInfo.getInt(TMDB_ID),
                     movieInfo.getString(TMDB_TITLE),
+                    movieInfo.getString(TMDB_PATH),
                     movieInfo.getString(TMDB_OVERVIEW),
                     movieInfo.getString(TMDB_RELEASE),
-                    movieInfo.getString(TMDB_PATH),
                     movieInfo.getDouble(TMDB_VOTE_AVG));
             }
             return resultMovies;
@@ -150,6 +149,7 @@ public class MoviesGridFragment extends Fragment {
                     .build();
 
                 URL url = new URL(builtUri.toString());
+                Log.v(LOG_TAG, "Getting list of movies: \n" + url);
 
                 // Create the request to TheMovieDatabase, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -178,6 +178,7 @@ public class MoviesGridFragment extends Fragment {
                     return null;
                 }
                 moviesJsonStr = buffer.toString();
+                Log.v(LOG_TAG, moviesJsonStr);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attempting
@@ -205,6 +206,13 @@ public class MoviesGridFragment extends Fragment {
 
             // This will only happen if there was an error getting or parsing the forecast.
             return null;
+        }
+        @Override
+        protected void onPostExecute(MovieInfo[] result) {
+            if (result != mMoviePosterAdapter.getData()) {
+                mMoviePosterAdapter.setData(result);
+                mMoviePosterAdapter.notifyDataSetChanged();
+            }
         }
     }
 }
